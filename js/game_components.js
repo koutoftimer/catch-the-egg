@@ -27,15 +27,15 @@ function Grid(count) {
 }
 
 Grid.prototype.init = function() {
-  for (var i = 0; i < this.count; i++) {
+  for (var i = 0; i < this.count; ++i) {
     var value = {};
 
-    if(i%2 == 0) {
+    if (i % 2 == 0) {
       value.x = (i > 0) ? 1 : 0;
       value.y = (i > 0) ? 1 : 0;
     } else {
-      value.x = (i > this.count/2) ? 1 : 0;
-      value.y = (i > this.count/2) ? 0 : 1;
+      value.x = (i > this.count / 2) ? 1 : 0;
+      value.y = (i > this.count / 2) ? 0 : 1;
     }
 
     this.avail.push(i);
@@ -73,8 +73,8 @@ function Egg(chicken, step, point) {
   this.point = point;
   this.amount = 5;
 
-  this.callback;
-  this.timer;
+  this.callback = null;
+  this.timer = null;
 }
 
 Egg.prototype.run = function(speed, callback) {
@@ -108,7 +108,7 @@ function Basket(position) {
   this.x = position.x;
   this.y = position.y;
 
-  this.callback;
+  this.callback = null;
 }
 
 Basket.prototype.updatePosition = function (position, callback) {

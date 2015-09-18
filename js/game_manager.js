@@ -12,7 +12,7 @@
  *  http://www.opensource.org/licenses/MIT
  */
 
-var GameManager = function() {
+function GameManager() {
   this.init();
   this.setup();
   this.start();
@@ -23,19 +23,16 @@ GameManager.prototype.init = function () {
   this.score = 0;
   this.loss = 0;
   this.over = false;
-  this.won = false;
 
   this.count = 4;
   this.level = 1;
   this.speed = 800;
-  // this.maxSpeed = 200;
-  this.interval = this.speed*2.5;
+  this.interval = this.speed * 2.5;
   this.point = 2;
 
   this.chickens = {};
-  this.eggs = {};
 
-  this.gameTimer;
+  this.gameTimer = null;
 
   this.basketStartPosition = { x: 0, y: 1 };
 };
@@ -56,22 +53,27 @@ GameManager.prototype.setup = function () {
 };
 
 GameManager.prototype.move = function (key) {
-  // 0: up, 1: right, 2: down, 3: left, 4: R - restart
-  var position = { x: this.basket.x, y: this.basket.y };
+  // 0: Top left
+  // 1: Top right
+  // 2: Bottom left
+  // 3: Bottom right
+  // 4: N - restart (new game)
 
   if (key == 4) {
     this.reStart();
     return false;
   }
 
-  if(key%2 == 0) {
-    position.y = (key > 0) ? 0 : 1;
-  } else {
-    position.x = (key > 2) ? 0 : 1;
-  }
+  var map = {
+        0: {x: 0, y: 1},
+        1: {x: 1, y: 1},
+        2: {x: 0, y: 0},
+        3: {x: 1, y: 0}
+      },
+      position = map[key];
 
   this.basket.updatePosition(position, this.api.bind(this));
-}
+};
 
 GameManager.prototype.start = function () {
   this.runGear();

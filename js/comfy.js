@@ -9,7 +9,7 @@ Array.prototype.diff = function(a) {
 
 Array.prototype.randomElement = function () {
   return this[Math.floor(Math.random() * this.length)]
-}
+};
 
 Element.prototype.hide = function() {
   this.style.display = 'none';

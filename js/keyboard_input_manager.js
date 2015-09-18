@@ -12,23 +12,21 @@ KeyboardInputManager.prototype.on = function (event, callback) {
 };
 
 KeyboardInputManager.prototype.emit = function (event, data) {
-  var callbacks = this.events[event];
-  if (callbacks) {
-    callbacks.forEach(function (callback) {
-      callback(data);
-    });
-  }
+  var callbacks = this.events[event] || [];
+  callbacks.forEach(function(callback) {
+    callback(data);
+  });
 };
 
 KeyboardInputManager.prototype.listen = function () {
   var self = this;
 
   var map = {
-    38: 0, // Up
-    39: 1, // Right
-    40: 2, // Down
-    37: 3, // Left
-    82: 4  // R
+    82: 0, // Top left
+    85: 1, // Top right
+    70: 2, // Bottom left
+    74: 3, // Bottom right
+    78: 4  // N (new)
   };
 
   document.addEventListener("keydown", function (event) {
